@@ -102,7 +102,7 @@ export default function Login() {
               <FormItens>
                  <RecaptchaDiv>
                   <ReCAPTCHA
-                    sitekey=""
+                    sitekey="6Ldo7xIqAAAAAAX9G81rioxm4SgfI5WXLVb4k9uI"
                   />
                 </RecaptchaDiv>
               </FormItens>
@@ -159,7 +159,7 @@ export default function Login() {
               <FormItens >
                 <RecaptchaDiv>
                   <ReCAPTCHA
-                    sitekey=""
+                    sitekey="6Ldo7xIqAAAAAAX9G81rioxm4SgfI5WXLVb4k9uI"
                   />
                 </RecaptchaDiv>
               </FormItens>
