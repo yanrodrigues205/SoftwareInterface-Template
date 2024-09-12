@@ -1,10 +1,10 @@
 import "./global.css";
-// import Login from "./pages/Login";
-import TwoFactor from "./pages/TwoFactor";
+import Login from "./pages/Login";
+//import TwoFactor from "./pages/TwoFactor";
 
 function App() {
   return (
-    <TwoFactor></TwoFactor>
+    <Login></Login>
   );
 }
 

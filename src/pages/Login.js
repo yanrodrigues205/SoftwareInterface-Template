@@ -3,18 +3,27 @@ import React, { useState, useEffect } from "react";
 import { FaApple, FaGoogle} from "react-icons/fa";
 import ReCAPTCHA from "react-google-recaptcha";
 import { Container, SignIn, SignUp, SubContainer, Box, Title, Description, FormContent, FormItens, FormInput, FormButton, Or, RecaptchaDiv } from "../styles/Login";
+import UserService from "../services/UsersService";
 
 
 export default function Login() {
 
   const [isExpanded, setExpanded] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 800);
+  const [nameInsert, setNameInsert ] = useState('');
+  const [emailInsert, setEmailInsert ] = useState('');
+  const [passwordInsert, setPasswordInsert ] = useState('');
+  const [confirmPasswordInsert, setConfirmPasswordInsert ] = useState('');
+  const [registerCaptchaValue, setRegisterCaptchaValue] = useState(null);
+  const userService = new UserService();
 
   // Monitora o redimensionamento da tela
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 800);
     };
+
+   
 
     window.addEventListener('resize', handleResize);
 
@@ -23,6 +32,14 @@ export default function Login() {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  const loginButton = async () => {
+    await userService.insert(nameInsert, emailInsert, passwordInsert, confirmPasswordInsert, registerCaptchaValue);
+  }
+
+  const onChangeREcaptcha = (value) => {
+    setRegisterCaptchaValue(value);
+  }
 
   const signinORsignup = (event) => {
       const data = event.currentTarget.getAttribute("data");
@@ -63,7 +80,7 @@ export default function Login() {
     "Don't have an account? Sign up now and start enjoying all the benefits of our platform.",
     "Already have an account? Log in here to continue where you left off."
   ];
-  const recaptchaKey = process.env.REACT_APP_RECAPTCHA_KEY;
+
 
 
   return (
@@ -138,35 +155,59 @@ export default function Login() {
               <Or>Or With Email</Or>
               <FormItens>
                 <strong>Name</strong>
-                <FormInput type="text" placeholder="Enter your name" required/>
+                <FormInput
+                  type="text"
+                  id="username_insert"
+                  placeholder="Enter your name"
+                  onChange={(e) => setNameInsert(e.target.value)}
+                  required/>
               </FormItens>
               
               <FormItens>
                 <strong>Email</strong>
-                <FormInput type="email" placeholder="Enter your email" required/>
+                <FormInput
+                  type="email"
+                  id="email_insert"
+                  placeholder="Enter your email"
+                  onChange={(e) => setEmailInsert(e.target.value)}
+                  required
+                />
               </FormItens>
 
               <FormItens>
                 <strong>Password</strong>
-                <FormInput type="password" placeholder="Enter your password" required/>
+                <FormInput
+                  type="password"
+                  id="password_insert"
+                  placeholder="Enter your password"
+                  onChange={(e) => setPasswordInsert(e.target.value)}
+                  required
+                />
               </FormItens>
 
               <FormItens>
                 <strong>Confirm Password</strong>
-                <FormInput type="password" placeholder="Confirm your password" required/>
+                <FormInput
+                  type="password"
+                  id="confirm_password_insert"
+                  placeholder="Confirm your password"
+                  onChange={(e) => setConfirmPasswordInsert(e.target.value)}
+                  required
+                />
               </FormItens>
 
               <FormItens >
                 <RecaptchaDiv>
                   <ReCAPTCHA
                     sitekey="6Ldo7xIqAAAAAAX9G81rioxm4SgfI5WXLVb4k9uI"
+                    onChange={onChangeREcaptcha}
                   />
                 </RecaptchaDiv>
               </FormItens>
 
 
               <FormItens>
-                <FormButton type="button">Create Account</FormButton>
+                <FormButton type="button" onClick={loginButton}>Create Account</FormButton>
               </FormItens>
 
 
