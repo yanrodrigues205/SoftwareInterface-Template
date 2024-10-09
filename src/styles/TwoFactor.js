@@ -4,7 +4,6 @@ export const Container = styled.div`
     display: flex;
     width: 100%;
     height: 100%;
-    max-width: 1200px;
     flex-direction: column;
 `;
 
@@ -53,7 +52,7 @@ export const ButtonForm = styled.button`
     padding: 10px;
 `;
 
-export const Timer = styled.div`
+export const TimerContainer = styled.div`
     display: flex;
     flex-direction: row;
     text-align: center;

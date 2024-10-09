@@ -5,10 +5,9 @@ const sweetAlert = await withReactContent(Swal);
 
 export default class UserService
 {
-
-    async __construct()
+    constructor(navigate)
     {
-
+        this.navigate = navigate;
     }
 
     async insert(name, email, password, confirm_password, recaptcha)
@@ -62,11 +61,23 @@ export default class UserService
         let data = {
             name,
             email,
-            password
+            password,
+            recaptcha
         }
 
-        let response = await postData("/first-factor", data);
+        let response = await postData("/signup", data);
         console.log(response);
+
+        if(response.status === 202)
+        {
+            await sweetAlert.fire({
+                title: 'System Message',
+                text: `${response.message}`,
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+            return;
+        }
 
 
     }
