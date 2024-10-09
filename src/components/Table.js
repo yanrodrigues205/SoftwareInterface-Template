@@ -2,6 +2,8 @@ import React, {Component} from "react";
 import Button  from "react-bootstrap/Button";
 import Form  from "react-bootstrap/Form";
 import DataTable from "react-data-table-component";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 
 class Table extends Component
 {
@@ -39,7 +41,8 @@ class Table extends Component
 
         const filteredData = data.filter(item => {
             return Object.keys(item).some((key) => {
-                item[key].toString().toLowerCase().includes(searchText.toLowerCase())
+                const value = item[key];
+                return value && value.toString().toLowerCase().includes(searchText.toLowerCase());
             });
         });
 
@@ -49,8 +52,12 @@ class Table extends Component
                 name: "Ações",
                 cell: (row) => (
                     <div>
-                        <Button variant="warning" onClick={() => onEdit(row.id)}>Edit</Button>
-                        <Button variant="danger" onClick={() => onDelete(row.id)}>Del</Button>
+                        <Button variant="warning" onClick={() => onEdit(row.id)}>
+                            <FontAwesomeIcon icon={faEdit} style={{ color: 'white'}}></FontAwesomeIcon>
+                        </Button>
+                        <Button variant="danger" onClick={() => onDelete(row.id)}>
+                            <FontAwesomeIcon icon={faTrash} style={{ color: 'white'}}></FontAwesomeIcon>
+                        </Button>
                     </div>
                 ),
                 ignoreRowClick: true,
@@ -61,7 +68,6 @@ class Table extends Component
 
         return (
             <DataTable
-                title={title}
                 columns={fieldsWithActions}
                 data={searchText && searchText.length > 0 ? filteredData : data}
                 pagination
