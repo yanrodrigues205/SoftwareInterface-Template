@@ -3,8 +3,10 @@ import Table from "../components/Table";
 import { Content } from "../styles/WorkHours";
 import WorkHoursService from "../services/WorkHours";
 import { usePrivateRoute } from "../hooks/usePrivateRoute";
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import {Form, Button, Modal, Alert, Container, Row, Col} from "react-bootstrap";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faClock, faPlus } from "@fortawesome/free-solid-svg-icons";
+
 export default function WorkHours()
 {
     const [ dataTable, setDataTable ] = useState(null);
@@ -16,6 +18,13 @@ export default function WorkHours()
     const [comments, setComments] = useState("");
     const [weekDays, setWeekDays] = useState("Segunda a Sexta.");
     const workHoursService = useMemo(() => new WorkHoursService(), []);
+    const [show, setShow] = useState(false);
+    const [modalTitle, setModalTitle] = useState("Adicionar novo Horário de Funcionamento")
+    const handleClose = () => {
+        setShow(false)};
+    const handleShow = () => {
+        setShow(true)
+    };
 
     const isVerified = usePrivateRoute(true);
     
@@ -100,6 +109,7 @@ export default function WorkHours()
             await workHoursService.updateOneById(idHidden, AMD_first, AMD_second, BMD_first, BMD_second, weekDays, comments)
         }   
         clearForm();
+        handleClose();
         changeTable();
     }
 
@@ -111,6 +121,8 @@ export default function WorkHours()
 
     async function getRow(id)
     {
+        handleShow();
+        setModalTitle("Alterar Horário de Funcionamento");
         clearForm();
         let response = await workHoursService.getOneById(id);
         if(response.id)
@@ -138,101 +150,135 @@ export default function WorkHours()
     }
 
     return (
-        <Content>
-         <h3>Formulário</h3>
-         <strong>Token</strong><br></br>
-         <textarea value={localStorage.getItem("token")}></textarea><br/>
-         <div>
-            <Form>
-                <br/>
-                <Form.Control 
-                    type="hidden"
-                    value={idHidden}
-                    onChange={(e) => setIdHidden(e.target.value)}
-                ></Form.Control>
-                <Form.Group>
-                    <Form.Label>Horário de Início</Form.Label><br/>
-                    <Form.Control 
-                        type="text" 
-                        maxLength="5"
-                        value={AMD_first}
-                        onChange={(e) => setAMD_first(e.target.value)}
-                    ></Form.Control>
-                </Form.Group><br/>
+        <Container fluid="md">
+            <Row>
+                <Col>
+                <h2 className="text-primary"><FontAwesomeIcon icon={faClock} />&nbsp;Horários de Funcionamento</h2>
+                <Button variant="primary" onClick={handleShow}>
+                <FontAwesomeIcon icon={faPlus} style={{color: 'white'}}></FontAwesomeIcon> 
+                </Button>
+                <Modal show={show} onHide={handleClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>{modalTitle}</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form>
+                            <br/>
+                            <Form.Control 
+                                type="hidden"
+                                value={idHidden}
+                                onChange={(e) => setIdHidden(e.target.value)}
+                            ></Form.Control>
+                            {idHidden && (
+                                <Form.Group>
+                                    <Form.Label>Código do Resíduo</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        value={idHidden}
+                                        readOnly
+                                    />
+                                </Form.Group>
+                            )}
+                            <Form.Group>
+                                <Form.Label>Horário de Início</Form.Label><br/>
+                                <Form.Control 
+                                    type="text" 
+                                    maxLength="5"
+                                    value={AMD_first}
+                                    onChange={(e) => setAMD_first(e.target.value)}
+                                ></Form.Control>
+                            </Form.Group><br/>
 
+                            <div>
+                                <Form.Label>Horário de Pausa</Form.Label><br/>
+                                <Form.Control 
+                                    type="text" 
+                                    maxLength="5"
+                                    value={AMD_second}
+                                    onChange={(e) => setAMD_second(e.target.value)}
+                                ></Form.Control>
+                            </div><br/>
+
+                            <div>
+                                <Form.Label>Retorno Pós-Pausa</Form.Label><br/>
+                                <Form.Control 
+                                    type="text" 
+                                    maxLength="5"
+                                    value={BMD_first}
+                                    onChange={(e) => setBMD_first(e.target.value)}
+                                ></Form.Control>
+                            </div><br/>
+
+                            <div>
+                                <Form.Label>Horário de Finalização</Form.Label><br/>
+                                <Form.Control 
+                                    type="text" 
+                                    maxLength="5"
+                                    value={BMD_second}
+                                    onChange={(e) => setBMD_second(e.target.value)}
+                                ></Form.Control>
+                            </div><br/>
+
+                            <div>
+                                <Form.Label>Dias da semana</Form.Label><br/>
+                                <Form.Select
+                                    onChange={(e) => setWeekDays(e.target.value)}
+                                    value={weekDays}    
+                                >
+                                    <option value="Segunda a Sexta.">Segunda a Sexta.</option>
+                                    <option value="Segunda a Sábado.">Segunda a Sábado.</option>
+                                    <option value="Todos os Dias.">Todos os Dias.</option>
+                                    <option value="Todos os Dias, Exeto feriados.">Todos os Dias, Exeto feriados.</option>
+                                </Form.Select>
+                            </div><br/>
+
+                            <div>
+                                <Form.Label>Comentários</Form.Label><br/>
+                                <Form.Control 
+                                    as="textarea"
+                                    value={comments}
+                                    onChange={(e) => setComments(e.target.value)}  
+                                ></Form.Control>
+                            </div>
+                        </Form>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button
+                            variant="success"
+                            type="button"
+                            onClick={sendForm}
+                        >
+                            Enviar
+                        </Button>
+                        <Button
+                            variant="primary"
+                            type="button"
+                            onClick={clearForm}
+                        >
+                            Limpar
+                        </Button>
+                        <Button variant="secondary" onClick={handleClose}>
+                            Fechar
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
                 <div>
-                    <Form.Label>Horário de Pausa</Form.Label><br/>
-                    <Form.Control 
-                        type="text" 
-                        maxLength="5"
-                        value={AMD_second}
-                        onChange={(e) => setAMD_second(e.target.value)}
-                    ></Form.Control>
-                </div><br/>
-
-                <div>
-                    <Form.Label>Retorno Pós-Pausa</Form.Label><br/>
-                    <Form.Control 
-                        type="text" 
-                        maxLength="5"
-                        value={BMD_first}
-                        onChange={(e) => setBMD_first(e.target.value)}
-                    ></Form.Control>
-                </div><br/>
-
-                <div>
-                    <Form.Label>Horário de Finalização</Form.Label><br/>
-                    <Form.Control 
-                        type="text" 
-                        maxLength="5"
-                        value={BMD_second}
-                        onChange={(e) => setBMD_second(e.target.value)}
-                    ></Form.Control>
-                </div><br/>
-
-                <div>
-                    <Form.Label>Dias da semana</Form.Label><br/>
-                    <Form.Select
-                        onChange={(e) => setWeekDays(e.target.value)}
-                        value={weekDays}    
-                    >
-                        <option value="Segunda a Sexta.">Segunda a Sexta.</option>
-                        <option value="Segunda a Sábado.">Segunda a Sábado.</option>
-                        <option value="Todos os Dias.">Todos os Dias.</option>
-                        <option value="Todos os Dias, Exeto feriados.">Todos os Dias, Exeto feriados.</option>
-                    </Form.Select>
-                </div><br/>
-
-                <div>
-                    <Form.Label>Comentários</Form.Label><br/>
-                    <Form.Control 
-                        as="textarea"
-                        value={comments}
-                        onChange={(e) => setComments(e.target.value)}  
-                    ></Form.Control>
-                </div>
-
-                <div><br/>
-                    <Button
-                        variant="success"
-                        type="button"
-                        onClick={sendForm}>Enviar</Button>
-                    &nbsp;
-                    <Button
-                        variant="primary"
-                        type="button"
-                        onClick={clearForm}>Limpar</Button>
-                </div>
-
-            </Form>
-         </div><hr/>
-         {Array.isArray(dataTable) && dataTable.length > 0 && dataTable ? <Table
-                        title="Horários de Funcionamento"
-                        data={dataTable} 
-                        fields={fields} 
-                        onEdit={(id) => getRow(id)}
-                        onDelete={(id) => deleteRow(id)}
-                      /> : <strong>Carregando Dados...</strong>}
-        </Content>
+                    
+                </div><hr/>
+                {Array.isArray(dataTable) && dataTable.length > 0 && dataTable ? <Table
+                                title="Horários de Funcionamento"
+                                data={dataTable} 
+                                fields={fields} 
+                                onEdit={(id) => getRow(id)}
+                                onDelete={(id) => deleteRow(id)}
+                            /> : <Alert variant="danger" onClose={() => setShow(false)} dismissible>
+                            <Alert.Heading>Dados não encontrados</Alert.Heading>
+                            <p>
+                            Você pode estar recebendo essa mensagem por conta da falta de registros neste setor do sistema, tente realizar adição de um Horário de Funcionamento.
+                            </p>
+                        </Alert>}
+                </Col>
+            </Row>
+        </Container>
     )
 }

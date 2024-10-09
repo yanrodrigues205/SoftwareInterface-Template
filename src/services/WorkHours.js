@@ -63,7 +63,7 @@ export default class WorkHoursService
     {
         const response = await getData("/work_hours/getall", false, localStorage.getItem("token"));
         
-        if(response.length > 0)
+        if(response && response.length > 0)
         {
             return response;
         }
@@ -106,7 +106,7 @@ export default class WorkHoursService
         {
             await sweetAlert.fire({
                 title: 'System Message',
-                text: 'To exclude working hours, you must provide your identification (ID).',
+                text: 'To search working hours, you must provide your identification (ID).',
                 icon: 'error', 
                 confirmButtonText: 'OK'
             });
@@ -173,7 +173,7 @@ export default class WorkHoursService
         {
             await sweetAlert.fire({
                 title: 'System Message',
-                text: 'We were unable to change these working hours, please try again',
+                text: 'It was not possible to change this residue. Try again',
                 icon: 'error', 
                 confirmButtonText: 'OK'
             });
