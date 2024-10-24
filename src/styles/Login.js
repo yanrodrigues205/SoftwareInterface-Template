@@ -29,7 +29,6 @@ export const Container = styled.div`
   height: 100vh;
   flex-direction: column;
   justify-content: center;
-  background: red;
   padding: 20px;
 `;
 
@@ -38,6 +37,8 @@ export const SubContainer = styled.div`
   display: flex;
   width: 100%;
   height: 100%;
+
+  box-shadow: 5px 5px 5px 5px #808080;
   padding: 20px;
   @media(max-width: 800px)
   {

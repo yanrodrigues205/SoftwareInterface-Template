@@ -5,7 +5,8 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { Container, SignIn, SignUp, SubContainer, Box, Title, Description, FormContent, FormItens, FormInput, FormButton, Or, RecaptchaDiv } from "../styles/Login";
 import UserService from "../services/UsersService";
 import SessionService from "../services/SessionService";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, Link } from "react-router-dom";
+import { Button, Form, Nav } from "react-bootstrap";
 
 export default function Login() {
 
@@ -92,13 +93,13 @@ export default function Login() {
   };
 
   const titles = [
-    "Sign In to Your Account",
-    "Create Your Account"
+    "Entre com a sua Conta",
+    "Crie sua Conta"
   ];
 
   const descriptions = [
-    "Don't have an account? Sign up now and start enjoying all the benefits of our platform.",
-    "Already have an account? Log in here to continue where you left off."
+    "Você não possí conta? Crie uma conta agora para desfrutar dos benefícios da plataforma.",
+    "Você ja possuí uma conta? Entre com a mesma para desfrutar da plataforma."
   ];
 
 
@@ -108,40 +109,26 @@ export default function Login() {
       <Container>
         <SubContainer>
           <SignIn id="signin">
-            <Title>Welcome Back!</Title>
-            {isMobile && (
-              <button onClick={signinORsignup} data="signup">
-                Sign Up
-              </button>
-            )}
+            <Title>Bem-Vindo de Volta!</Title>
+           
 
             <FormContent>
               <FormItens>
-                <FormButton type="button"><FaGoogle/>Sign In with Google</FormButton>
-              </FormItens>
-
-              <FormItens>
-                <FormButton type="button"><FaApple/>  Sign In with Apple</FormButton>
-              </FormItens>
-              <br/>
-              <hr/>
-              <Or>Or With Email</Or>
-              <FormItens>
                 <strong>Email</strong>
-                <FormInput 
+                <Form.Control 
                   type="email" 
                   onChange={(e) => setEmailLogin(e.target.value)} 
-                  placeholder="Enter your email" 
+                  placeholder="Digite seu E-mail" 
                   required
                 />
               </FormItens>
 
               <FormItens>
-                <strong>Password</strong>
-                <FormInput 
+                <strong>Senha</strong>
+                <Form.Control 
                   type="password" 
                   onChange={(e) => setPasswordLogin(e.target.value)} 
-                  placeholder="Enter your password" 
+                  placeholder="Digite sua Senha" 
                   required
                 />
               </FormItens>
@@ -156,12 +143,29 @@ export default function Login() {
               </FormItens>
               
               <FormItens>
-                <FormButton 
+                <Button
+                  variant="success" 
                   type="button"
                   onClick={loginButton}
                 > 
-                  Log In
-                </FormButton>
+                  Entrar
+                </Button>
+              </FormItens>
+
+              <FormItens>
+                  {isMobile && (
+                  <Button variant="primary" onClick={signinORsignup} data="signup">
+                    Quero Criar Conta
+                  </Button>
+                )}
+              </FormItens>
+
+              <FormItens>
+                  <NavLink as={Link} to="/">
+                    <Button variant="secondary" className="w-100">
+                        Ir para Home
+                    </Button>
+                  </NavLink>
               </FormItens>
 
             </FormContent>
@@ -171,62 +175,46 @@ export default function Login() {
 
 
           <SignUp id="signup">
-            <Title>Join Us and Get Started!</Title>
-            {isMobile && (
-              <button onClick={signinORsignup} data="signin">
-                Sign In
-              </button>
-            )}
-            <br/>
+            <Title>Crie sua Conta para Começar!</Title>
             <FormContent>
               <FormItens>
-                <FormButton type="button"><FaGoogle/>Sign Up with Google</FormButton>
-              </FormItens>
-
-              <FormItens>
-                <FormButton type="button"><FaApple/>  Sign Up with Apple</FormButton>
-              </FormItens>
-              <br/>
-              <hr/>
-              <Or>Or With Email</Or>
-              <FormItens>
-                <strong>Name</strong>
-                <FormInput
+                <strong>Nome</strong>
+                <Form.Control
                   type="text"
                   id="username_insert"
-                  placeholder="Enter your name"
+                  placeholder="Digite seu Nome"
                   onChange={(e) => setNameInsert(e.target.value)}
                   required/>
               </FormItens>
               
               <FormItens>
                 <strong>Email</strong>
-                <FormInput
+                <Form.Control
                   type="email"
                   id="email_insert"
-                  placeholder="Enter your email"
+                  placeholder="Digite seu Email"
                   onChange={(e) => setEmailInsert(e.target.value)}
                   required
                 />
               </FormItens>
 
               <FormItens>
-                <strong>Password</strong>
-                <FormInput
+                <strong>Senha</strong>
+                <Form.Control
                   type="password"
                   id="password_insert"
-                  placeholder="Enter your password"
+                  placeholder="Digite sua Senha"
                   onChange={(e) => setPasswordInsert(e.target.value)}
                   required
                 />
               </FormItens>
 
               <FormItens>
-                <strong>Confirm Password</strong>
-                <FormInput
+                <strong>Confirme sua Senha</strong>
+                <Form.Control
                   type="password"
                   id="confirm_password_insert"
-                  placeholder="Confirm your password"
+                  placeholder="Digite sua senha novamente"
                   onChange={(e) => setConfirmPasswordInsert(e.target.value)}
                   required
                 />
@@ -243,10 +231,24 @@ export default function Login() {
 
 
               <FormItens>
-                <FormButton type="button" onClick={registerButton}>Create Account</FormButton>
+                <Button variant="success" type="button" onClick={registerButton}>Criar Conta</Button>
               </FormItens>
 
+              <FormItens>
+                  <NavLink as={Link} to="/">
+                    <Button variant="secondary" className="w-100">
+                        Ir para Home
+                    </Button>
+                  </NavLink>
+              </FormItens>
 
+              <FormItens>
+              {isMobile && (
+                  <Button variant="primary" onClick={signinORsignup} data="signin">
+                    Ja Tenho Conta
+                  </Button>
+                )}
+              </FormItens>
             </FormContent>
           </SignUp>
          {true ? (
@@ -259,9 +261,12 @@ export default function Login() {
               {isExpanded ?  descriptions[1] : descriptions[0]}
             </Description>
             <br></br>
-            <button onClick={toggleDiv} type="button">
-              {isExpanded ?  "Sign In" : "Sign Up"}
-            </button>
+            <FormItens>
+              <Button variant="primary" className="w-100" onClick={toggleDiv} type="button">
+                {isExpanded ?  "Entrar" : "Cadastrar-Me"}
+              </Button>
+            </FormItens>
+            
           </Box>
         ) : (
           <p>Loading...</p>
