@@ -33,13 +33,16 @@ export const getData = async (endpoint, data = false, token = false) => {
     }
     catch(err)
     {
-        await sweetAlert.fire({
-            title: 'System Message',
-            text: `${err.response.data.message}`,
-            icon: 'error', // Pode ser 'success', 'error', 'warning', 'info', 'question'
-            confirmButtonText: 'OK'
-        });
-        return;
+        if(err.response && err.response.data.message)
+        {
+            await sweetAlert.fire({
+                title: 'System Message',
+                text: `${err.response.data.message}`,
+                icon: 'error', // Pode ser 'success', 'error', 'warning', 'info', 'question'
+                confirmButtonText: 'OK'
+            });
+            return false;
+        }
     }
 };
 
@@ -64,17 +67,20 @@ export const putData = async (endpoint, data, token = false) => {
     }
     catch(err)
     {
-        await sweetAlert.fire({
-            title: 'System Message',
-            text: `${err.response.data.message}`,
-            icon: 'error', // Pode ser 'success', 'error', 'warning', 'info', 'question'
-            confirmButtonText: 'OK'
-        });
-        return;
+        if(err.response && err.response.data.message)
+        {
+            await sweetAlert.fire({
+                title: 'System Message',
+                text: `${err.response.data.message}`,
+                icon: 'error', // Pode ser 'success', 'error', 'warning', 'info', 'question'
+                confirmButtonText: 'OK'
+            });
+            return false;
+        }
     }
 };
 
-export const postData = async (endpoint, data, token = false) => {
+export const postData = async (endpoint, data, token = false, alert_fail = false) => {
     try
     {
         let response = "";
@@ -97,13 +103,19 @@ export const postData = async (endpoint, data, token = false) => {
     }
     catch(err)
     {
-        await sweetAlert.fire({
-            title: 'System Message',
-            text: `${err.response.data.message}`,
-            icon: 'error', // Pode ser 'success', 'error', 'warning', 'info', 'question'
-            confirmButtonText: 'OK'
-        });
-        return false;
+        if(err.response && err.response.data.message)
+        {
+            if(alert_fail)
+            {   
+                await sweetAlert.fire({
+                    title: 'System Message',
+                    text: `${err.response.data.message}`,
+                    icon: 'error', // Pode ser 'success', 'error', 'warning', 'info', 'question'
+                    confirmButtonText: 'OK'
+                });
+            }       
+            return false;
+        }
     }
 };
 
@@ -133,13 +145,16 @@ export const deleteData = async (endpoint, data, token = false) => {
     }
     catch(err)
     {
-        await sweetAlert.fire({
-            title: 'System Message',
-            text: `${err.response.data.message}`,
-            icon: 'error', // Pode ser 'success', 'error', 'warning', 'info', 'question'
-            confirmButtonText: 'OK'
-        });
-        return;
+        if(err.response && err.response.data.message)
+        {
+            await sweetAlert.fire({
+                title: 'System Message',
+                text: `${err.response.data.message}`,
+                icon: 'error', // Pode ser 'success', 'error', 'warning', 'info', 'question'
+                confirmButtonText: 'OK'
+            });
+            return false;
+        }
     }
 };
 
