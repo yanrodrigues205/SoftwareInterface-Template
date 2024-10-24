@@ -5,7 +5,7 @@ import withReactContent from "sweetalert2-react-content";
 import { postData } from "../services/Request";
 const sweetAlert = await withReactContent(Swal);
 
-export const usePrivateRoute = (verifyCollectUser) => {
+export const usePrivateRoute = (verifyCollectUser = false) => {
     const navigate = useNavigate();
     const [isVerified, setIsVerified ] = useState(false);
 
@@ -28,7 +28,7 @@ export const usePrivateRoute = (verifyCollectUser) => {
 
             const resp = await postData("/verify", data);
             
-            if(!resp || typeof resp !== "object")
+            if(!resp || (resp && typeof resp !== "object"))
             {
                 await sweetAlert.fire({
                     title: 'System Message',
