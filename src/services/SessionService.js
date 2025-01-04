@@ -83,6 +83,7 @@ export default class SessionService
         {
             if(getToken.status === 202)
             {
+                console.log("ID DE USUÁRIO DE COLETA =>", getToken.collectUser_id);
                 localStorage.setItem("token", getToken.token);
                 localStorage.removeItem("id_otp");
                 localStorage.removeItem("expiry_otp");
@@ -92,7 +93,23 @@ export default class SessionService
                     icon: 'success', // Pode ser 'success', 'error', 'warning', 'info', 'question'
                     confirmButtonText: 'OK'
                 });
-                this.navigate("/work_hours");
+
+                
+
+                if(getToken.collectUser_id)
+                {   
+                    this.navigate("/collect_points");
+                }
+                else
+                {
+                    await sweetAlert.fire({
+                        title: 'System Message',
+                        text: `Cadastre-se como um coletador para conseguir adicionar seus multiplos pontos de coleta, meterias aceitos e horário de funciomento.😄`,
+                        icon: 'success', // Pode ser 'success', 'error', 'warning', 'info', 'question'
+                        confirmButtonText: 'OK'
+                    });
+                    this.navigate("/collect_user");
+                }
             }
             
         }

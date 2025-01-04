@@ -45,6 +45,9 @@ export const OTPInput = styled.input`
     font-size: 30px;
     max-width: 50px;
     padding: 5px;
+    text-align: center;
+    border-radius: 10px;
+    border: 1px solid gray;
 `;
 
 export const ButtonForm = styled.button`

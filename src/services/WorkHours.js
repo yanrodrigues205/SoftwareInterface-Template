@@ -50,8 +50,8 @@ export default class WorkHoursService
         if(response.status === 202)
         {
             await sweetAlert.fire({
-                title: 'System Message',
-                text: 'Unable to enter working hours.',
+                title: 'Mensagem do Sistema😁',
+                text: 'Horário de Funcionamento cadastrado com sucesso!',
                 icon: 'success', 
                 confirmButtonText: 'OK'
             });
@@ -91,7 +91,7 @@ export default class WorkHoursService
         if(response)
         {
             await sweetAlert.fire({
-                title: 'System Message',
+                title: 'Mensagem do Sistema😁',
                 text: `${response.message}`,
                 icon: 'success', 
                 confirmButtonText: 'OK'

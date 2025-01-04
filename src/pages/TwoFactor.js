@@ -1,4 +1,5 @@
 import React, {useState, useRef, useEffect} from "react";
+import { Button } from "react-bootstrap";
 import { Container, SubContainer, Form, OTPInput, Title, InputContainer, Description, ButtonForm, TimerContainer, TimerValue } from "../styles/TwoFactor";
 import {FaClock} from "react-icons/fa"
 import Timer from "../components/Timer";
@@ -66,8 +67,8 @@ export default function TwoFactor()
     return (
        <Container>
             <SubContainer>
-                <Title>Verification Code</Title><br/>
-                <Description>Two-factor authentication 2FA enhances security by requiring two forms of verification—typically something the user knows password and something they possess a code or device. This extra layer reduces the risk of unauthorized access, even if login credentials are compromised. It ensures stronger protection for sensitive data.</Description><br/>
+                <Title>Verificação por Código 🔒</Title><br/>
+                <Description><i>A autenticação de Dois Fatores aumenta a segurança ao exigir duas formas de verificação, normalmente algo que o usuário conhece a senha e algo que ele possui um código ou dispositivo. Essa camada extra reduz o risco de acesso não autorizado, mesmo se as credenciais de login estiverem comprometidas. Garante uma proteção mais forte para dados confidenciais.</i></Description><br/>
                 <Form>
                     <TimerContainer>
                         <FaClock/>
@@ -89,9 +90,9 @@ export default function TwoFactor()
                             );
                         })}
                     </InputContainer>
-                    <ButtonForm type="button">
-                        Send
-                    </ButtonForm>
+                    <Button variant="success" type="button">
+                        Enviar
+                    </Button>
                 </Form>
             </SubContainer>
        </Container>

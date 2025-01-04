@@ -68,7 +68,7 @@ export default class UserService
         let response = await postData("/signup", data);
         console.log(response);
 
-        if(response.status === 202)
+        if(response && response.status === 202)
         {
             await sweetAlert.fire({
                 title: 'System Message',
@@ -80,5 +80,29 @@ export default class UserService
         }
 
 
+    }
+
+    async getOneByID(user_id)
+    {
+        if(!user_id || user_id.length <= 10)
+        {
+            await sweetAlert.fire({
+                title: 'System Message',
+                text: 'Para concluir a busca de informação é necessário informar o ID.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+            return;
+        }
+
+        let data = {
+            id: user_id
+        }
+
+
+        let response = await postData("/user/getUserById", data, localStorage.getItem("token"));
+
+        console.log("INFORMAÇÕES OBTIDAS DO USUÁRIO",response);
+        return response;
     }
 }

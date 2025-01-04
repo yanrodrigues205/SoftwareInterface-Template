@@ -1,7 +1,7 @@
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { getData, postData, deleteData, putData } from "./Request";
-const sweetAlert = await withReactContent(Swal);
+const sweetAlert = withReactContent(Swal);
 export default class WastesService
 {
     constructor(navigate)
@@ -37,9 +37,19 @@ export default class WastesService
         if(response.status === 202)
         {
             await sweetAlert.fire({
-                title: 'System Message',
+                title: 'Mensagem do Sistema😁',
                 text: `${response.message}`,
                 icon: 'success',
+                confirmButtonText: 'OK'
+            });
+            return;
+        }
+        else
+        {
+            await sweetAlert.fire({
+                title: 'System Message',
+                text: `${response.message}`,
+                icon: 'error',
                 confirmButtonText: 'OK'
             });
             return;

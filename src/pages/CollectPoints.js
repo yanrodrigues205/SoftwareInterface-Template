@@ -32,7 +32,7 @@ export default function CollectPoints() {
 
     let fields = [
         {
-            name: "Código",
+            name: "Identificação",
             selector: row => row.id,
             sortable: true
         },
@@ -81,31 +81,6 @@ export default function CollectPoints() {
             selector: row => row.address_number,
             sortable: true
         },
-        {
-            name: "Usuário de Coleta",
-            selector: row => row.collectUser_id,
-            sortable: true
-        },
-        {
-            name: "Horário de Funcionamento",
-            selector: row => row.workHours_id,
-            sortable: true
-        },
-        {
-            name: "Data de Criação",
-            selector: row => row.created_at,
-            sortable: true
-        },
-        {
-            name: "Data de Atualização",
-            selector: row => row.updated_at,
-            sortable: true
-        },
-        {
-            name: "Data de Desativação",
-            selector: row => row.disabled_at,
-            sortable: true
-        }
     ]
 
     const changeTable = useCallback(async () => {

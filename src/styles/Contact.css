@@ -1,0 +1,18 @@
+.contact-icon {
+    color: #28a745; /* Cor verde para ícones */
+  }
+  
+  .card {
+    border-radius: 15px;
+  }
+  
+  .card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #343a40; /* Cor do título */
+  }
+  
+  .card-text {
+    font-size: 1.1rem; /* Aumenta o tamanho do texto */
+  }
+  

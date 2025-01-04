@@ -29,9 +29,9 @@ export default function Wastes()
     const isVerified = usePrivateRoute(true);
     let rotulo = [
         {
-            name: "Código",
+            name: "Identificação",
             selector: row => row.id,
-            sortable: true,
+            sortable: true
         },
         {
             name: "Tipo do Resíduo",
@@ -58,26 +58,6 @@ export default function Wastes()
             selector: row => row.value,
             sortable: true
         },
-        {
-            name: "Data de Desativação",
-            selector: row => row.disabled_at,
-            sortable: true
-        },
-        {
-            name: "Código do Criador",
-            selector: row => row.collectUser_id,
-            sortable: true
-        },
-        {
-            name: "Data de Criação",
-            selector: row => row.created_at,
-            sortable: true
-        },
-        {
-            name: "Data de Atualização",
-            selector: row => row.updated_at,
-            sortable: true
-        },
     ]
 
     const changeTable = useCallback(async () => {
@@ -96,8 +76,8 @@ export default function Wastes()
         setType("");
         setClassification("");
         setDescription("");
-        setUnitOfMeasure("No_degree_of_danger")
-        setClassification("Kilogram");
+        setUnitOfMeasure("Kilogram")
+        setClassification("No_degree_of_danger");
         setValue("");
         setDisabledAt("");
     }
@@ -282,7 +262,7 @@ export default function Wastes()
                             onEdit={(id) => getRow(id)}
                             onDelete={(id) => deleteRow(id)}
                         >
-                        </Table> : <Alert variant="danger" onClose={() => setShow(false)} dismissible>
+                        </Table> : <Alert variant="primary" onClose={() => setShow(false)} dismissible>
                                         <Alert.Heading>Dados não encontrados</Alert.Heading>
                                         <p>
                                         Você pode estar recebendo essa mensagem por conta da falta de registros neste setor do sistema, tente realizar adição de Resíduo.

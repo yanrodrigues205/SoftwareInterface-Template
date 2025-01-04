@@ -35,12 +35,12 @@ export const getData = async (endpoint, data = false, token = false) => {
     {
         if(err.response && err.response.data.message)
         {
-            await sweetAlert.fire({
-                title: 'System Message',
-                text: `${err.response.data.message}`,
-                icon: 'error', // Pode ser 'success', 'error', 'warning', 'info', 'question'
-                confirmButtonText: 'OK'
-            });
+            // await sweetAlert.fire({
+            //     title: 'System Message',
+            //     text: `${err.response.data.message}`,
+            //     icon: 'error', // Pode ser 'success', 'error', 'warning', 'info', 'question'
+            //     confirmButtonText: 'OK'
+            // });
             return false;
         }
     }
@@ -69,12 +69,12 @@ export const putData = async (endpoint, data, token = false) => {
     {
         if(err.response && err.response.data.message)
         {
-            await sweetAlert.fire({
-                title: 'System Message',
-                text: `${err.response.data.message}`,
-                icon: 'error', // Pode ser 'success', 'error', 'warning', 'info', 'question'
-                confirmButtonText: 'OK'
-            });
+            // await sweetAlert.fire({
+            //     title: 'System Message',
+            //     text: `${err.response.data.message}`,
+            //     icon: 'error', // Pode ser 'success', 'error', 'warning', 'info', 'question'
+            //     confirmButtonText: 'OK'
+            // });
             return false;
         }
     }
@@ -98,7 +98,7 @@ export const postData = async (endpoint, data, token = false, alert_fail = false
         }
         
 
-
+        console.log(response.data)
         return response.data;
     }
     catch(err)
@@ -107,12 +107,12 @@ export const postData = async (endpoint, data, token = false, alert_fail = false
         {
             if(alert_fail)
             {   
-                await sweetAlert.fire({
-                    title: 'System Message',
-                    text: `${err.response.data.message}`,
-                    icon: 'error', // Pode ser 'success', 'error', 'warning', 'info', 'question'
-                    confirmButtonText: 'OK'
-                });
+                // await sweetAlert.fire({
+                //     title: 'System Message',
+                //     text: `${err.response.data.message}`,
+                //     icon: 'error', // Pode ser 'success', 'error', 'warning', 'info', 'question'
+                //     confirmButtonText: 'OK'
+                // });
             }       
             return false;
         }

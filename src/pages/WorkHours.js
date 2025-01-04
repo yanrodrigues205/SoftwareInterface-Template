@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState, useMemo} from "react"
 import Table from "../components/Table";
-import { Content } from "../styles/WorkHours";
 import WorkHoursService from "../services/WorkHours";
 import { usePrivateRoute } from "../hooks/usePrivateRoute";
 import {Form, Button, Modal, Alert, Container, Row, Col} from "react-bootstrap";
@@ -30,9 +29,9 @@ export default function WorkHours()
     
     let fields = [
         {
-            name: "Código",
+            name: "Identificação",
             selector: row => row.id,
-            sortable: true,
+            sortable: true
         },
         {
             name: "Horário de Início",
@@ -57,21 +56,6 @@ export default function WorkHours()
         {
             name: "Comentários",
             selector: row => row.comments,
-            sortable: true
-        },
-        {
-            name: "Código do Criador",
-            selector: row => row.collectUser_id,
-            sortable: true
-        },
-        {
-            name: "Data de Criação",
-            selector: row => row.created_at,
-            sortable: true
-        },
-        {
-            name: "Data de Atualização",
-            selector: row => row.updated_at,
             sortable: true
         },
         {
@@ -271,7 +255,7 @@ export default function WorkHours()
                                 fields={fields} 
                                 onEdit={(id) => getRow(id)}
                                 onDelete={(id) => deleteRow(id)}
-                            /> : <Alert variant="danger" onClose={() => setShow(false)} dismissible>
+                            /> : <Alert variant="primary" onClose={() => setShow(false)} dismissible>
                             <Alert.Heading>Dados não encontrados</Alert.Heading>
                             <p>
                             Você pode estar recebendo essa mensagem por conta da falta de registros neste setor do sistema, tente realizar adição de um Horário de Funcionamento.

@@ -16,7 +16,7 @@ export default class CollectPointService
         if(!name || !description || !latitude || !longitude || !street || !city || !state || !country || !address_number || !id_work_hours)
         {
             await sweetAlert.fire({
-                title: 'Mensagem do Sistema',
+                title: 'Mensagem do Sistema😁',
                 text: 'Preencha todos os campos para concluir a inserção do ponto de coleta.',
                 icon: 'question', 
                 confirmButtonText: 'OK'
@@ -44,7 +44,7 @@ export default class CollectPointService
         if(response.status === 202)
         {
             await sweetAlert.fire({
-                title: 'Mensagem do Sistema',
+                title: 'Mensagem do Sistema😁',
                 text: 'Ponto de Coleta adicionado com sucesso!',
                 icon: 'success', 
                 confirmButtonText: 'OK'
